@@ -1,18 +1,20 @@
 import pandas as pd
 
-# Importing data from .csv to DataFrame
-df=pd.read_csv('/StockMachine/data_stocks.csv', sep=',',header=None)
+# Grabbing headers as an Index (immutable ndarray implementing an ordered, sliceable set).
+# col_names.values to get column names as just array
+col_names = pd.read_csv('~/StockMachine/data_stocks.csv', nrows=0).columns
 
-# Data is in an array of arrays
-# [['DATE' 'SP500' 'NASDAQ.AAL' ... 'NYSE.YUM' 'NYSE.ZBH' 'NYSE.ZTS']
-# ['1491226200' '2363.6101' '42.33' ... '63.86' '122' '53.35']
-# ['1491226260' '2364.1001' '42.36' ... '63.74' '121.77' '53.35']
-# ...
-# [1504209480 2470.03 44.74 ... 76.88 114.31 62.685]
-# [1504209540 2471.49 44.71 ... 76.83 114.23 62.6301]
-# [1504209600 2471.49 44.74 ... 76.81 114.28 62.68]]
+# Specifying dtype as 'float64' for all columns other than 'DATE'
+types_dict = {}
+types_dict.update({col: 'float64' for col in col_names if col != 'DATE'})
+
+# Importing data from .csv to DataFrame with specified dtypes
+df = pd.read_csv('~/StockMachine/data_stocks.csv', dtype=types_dict)
+
+# Convert unix time to readable date by casting dates to 'datetime64[ns]' dtype
+df['DATE'] = pd.to_datetime(df['DATE'],unit='s')
+
+# Data (without col_names) as numpy.ndarray.
+# Dates in form Timestamp('2017-04-03 13:30:00') due to Numpy representation of DataFrame
 data = df.values
-
-# To convert to dictionary
-# df2 = pd.DataFrame(data, columns = df.columns)
-# df2.to_dict(orient='records')
+print(data)
