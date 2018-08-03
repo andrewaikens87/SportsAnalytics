@@ -2,7 +2,7 @@ import pandas as pd
 
 # Grabbing headers as an Index (immutable ndarray implementing an ordered, sliceable set).
 # col_names.values to get column names as just array
-col_names = pd.read_csv('~/StockMachine/data_stocks.csv', nrows=0).columns
+col_names = pd.read_csv('data_stocks.csv', nrows=0).columns
 
 # Specifying dtype as 'float64' for all columns other than 'DATE'
 types_dict = {}
