@@ -9,7 +9,7 @@ types_dict = {}
 types_dict.update({col: 'float64' for col in col_names if col != 'DATE'})
 
 # Importing data from .csv to DataFrame with specified dtypes
-df = pd.read_csv('~/StockMachine/data_stocks.csv', dtype=types_dict)
+df = pd.read_csv('data_stocks.csv', dtype=types_dict)
 
 # Convert unix time to readable date by casting dates to 'datetime64[ns]' dtype
 df['DATE'] = pd.to_datetime(df['DATE'],unit='s')
